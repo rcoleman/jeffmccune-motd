@@ -30,3 +30,6 @@ during the most recent Puppet run.
 <% end -%>
 <% end -%>
 -------------------------------------------------
+<% if has_variable?("custom_message") then -%>
+<%= @custom_message %>
+<% end %>
