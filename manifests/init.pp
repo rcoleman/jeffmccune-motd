@@ -15,6 +15,7 @@
 class motd(
   $puppet_info = true,
   $hardware_info = true,
+  $custom_message = undef,
 ) {
 
   validate_bool($puppet_info, $hardware_info)
