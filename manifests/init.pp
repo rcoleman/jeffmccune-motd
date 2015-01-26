@@ -4,6 +4,10 @@
 #
 # Parameters:
 #
+# [*template*]
+#   Sets the path to the template to use as content for main motd file
+#   If defined, main motd file has: content => content("$template")
+#
 # Actions:
 #
 # Requires:
@@ -15,18 +19,19 @@
 class motd(
   $puppet_info = true,
   $hardware_info = true,
+  $template = 'motd/motd.erb',
 ) {
 
   validate_bool($puppet_info, $hardware_info)
 
-  $motd_group = $operatingsystem ? {
+  $motd_group = $::operatingsystem ? {
     solaris => 'sys',
     default => '0',
   }
 
   file { '/etc/motd':
     ensure  => file,
-    content => template("${module_name}/motd.erb"),
+    content => template($template),
     owner   => '0',
     group   => $motd_group,
     mode    => '0644',
